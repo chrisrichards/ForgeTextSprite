@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "allowUmdGlobalAccess": true,
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true,
+
+    "resolveJsonModule": true,
+
+    "lib": ["es2015", "dom"],
+    "baseUrl": "./",
+
+    // Gives error if there are implied "<any>" types.
+    "noImplicitAny": true,
+
+    // Allows you to access non-constant properties, such as object[keyVar]
+    "suppressImplicitAnyIndexErrors": true,
+
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": ["forge-viewer"]
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
