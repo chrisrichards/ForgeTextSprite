@@ -1,6 +1,4 @@
-﻿import TextSprite from './TextSprite';
-
-const markerLength = 1;
+﻿const markerLength = 1;
 const fifthMarkerLength = 5;
 const tenthMarkerLength = 10;
 const ordinalMarkerLength = 15;
@@ -9,8 +7,8 @@ const color = 0x444444;
 const fontSize = 4;
 const halfFontSize = fontSize / 2;
 const radius = 100;
-
-const cardinalOuter = radius + 10;
+const cardinalOffset = 5;
+const cardinalOuter = radius + cardinalOffset;
 
 
 export default class CompassRose {
@@ -34,28 +32,28 @@ export default class CompassRose {
             group.add(lineParent);
         }
 
-        let sprite = this.createHeadingTextSprite("N")
-            .translateX(cardinalOuter - fontSize)
-            .translateY(halfFontSize)
-            .rotateZ(-Math.PI / 2);
-        group.add(sprite);
-
-        sprite = this.createHeadingTextSprite("S")
-            .translateX(-cardinalOuter)
-            .translateY(halfFontSize)
-            .rotateZ(-Math.PI / 2);
-        group.add(sprite);
-
-        sprite = this.createHeadingTextSprite("W")
+        let sprite = this.createHeadingText("N", material)
             .translateY(cardinalOuter)
-            .translateX(-halfFontSize)
-            .rotateZ(-Math.PI / 2);
+            .translateZ(-halfFontSize)
+            .rotateY(-Math.PI / 2);
         group.add(sprite);
 
-        sprite = this.createHeadingTextSprite("E")
-            .translateY(-cardinalOuter + fontSize)
-            .translateX(-halfFontSize)
-            .rotateZ(-Math.PI / 2);
+        sprite = this.createHeadingText("E", material)
+            .translateZ(cardinalOuter)
+            .translateY(-halfFontSize)
+            .rotateY(-Math.PI / 2);
+        group.add(sprite);
+
+        sprite = this.createHeadingText("S", material)
+            .translateY(-cardinalOuter - cardinalOffset)
+            .translateZ(-halfFontSize)
+            .rotateY(-Math.PI / 2);
+        group.add(sprite);
+
+        sprite = this.createHeadingText("W", material)
+            .translateZ(-cardinalOuter)
+            .translateY(-halfFontSize)
+            .rotateY(Math.PI / 2);
         group.add(sprite);
 
         return group;
@@ -84,7 +82,12 @@ export default class CompassRose {
         return new THREE.Line(lineGeometry, material);
     }
 
-    private createHeadingTextSprite(text: string): THREE.Sprite {
-        return new TextSprite(text, 10, '#888888');
+    private createHeadingText(text: string, material: THREE.Material): THREE.Mesh {
+        const options = {
+            size: fontSize,
+            height: 0
+        };
+        const textGeometry = new THREE.TextGeometry(text, options);
+        return new THREE.Mesh(textGeometry, material);
     }
 }

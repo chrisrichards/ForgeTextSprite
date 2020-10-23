@@ -1,4 +1,5 @@
 import CompassRose from "./CompassRose";
+import FontJson from '../fonts/helvetiker_regular.typeface.json'
 
 export class App {
     private urn: string;
@@ -14,6 +15,7 @@ export class App {
             env: "AutodeskProduction"
         }
 
+        THREE.FontUtils.loadFace(FontJson);
         Autodesk.Viewing.Initializer(options, () => self.onInitialized());
     }
 
@@ -39,7 +41,6 @@ export class App {
         Autodesk.Viewing.Document.load(documentId,
             (doc) => self.onDocumentLoadSuccess(doc),
             (errorCodes) => self.onDocumentLoadFailure(errorCodes));
-
     }
 
     private onDocumentLoadSuccess(doc: Autodesk.Viewing.Document) {
